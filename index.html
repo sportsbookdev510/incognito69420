@@ -71,7 +71,16 @@
     .tagline { font-size: clamp(18px, 2.2vw, 24px); margin: 22px 0 14px; line-height: 1.35; font-weight: 600; }
     .tagline em { font-style: normal; color: var(--ember); }
     .lede { color: var(--dim); max-width: 52ch; margin-top: 24px; }
-    .actions { margin: 28px 0; }
+    .actions { margin: 28px 0; display: flex; flex-wrap: wrap; gap: 12px; }
+    .x-btn {
+      appearance: none; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      background: transparent; color: var(--ink); border: 1px solid var(--line-strong);
+      font: 700 14px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase;
+      padding: 17px 28px; cursor: pointer; text-decoration: none; transition: border-color .15s, color .15s, transform .15s;
+    }
+    .x-btn:hover { border-color: var(--ink); color: var(--ember); }
+    .x-btn:active { transform: translateY(1px); }
+    .x-btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
   
     .contract { display: flex; align-items: stretch; margin-top: 28px; border: 1px solid var(--line-strong); max-width: 560px; background: var(--panel); }
     .contract .f { padding: 11px 14px; min-width: 0; flex: 1; }
@@ -155,7 +164,8 @@
       .copy .title { order: 1; }
       .copy .tagline { order: 2; margin: 14px 0 18px; }
       .copy .actions { order: 3; margin: 0 0 22px; }
-      .copy .actions .buy-btn { width: 100%; }
+      .copy .actions .buy-btn,
+      .copy .actions .x-btn { width: 100%; }
       .copy .lede { order: 4; margin-top: 22px; }
       .copy .contract { order: 5; }
       .feed { max-width: 100%; }
@@ -173,6 +183,7 @@
       <a class="brand" href="#top">INCOGNITO<i>_</i></a>
       <ul>
         <li><a href="#buy">Buy</a></li>
+        <li><a href="https://x.com/Incognitooneth" target="_blank" rel="noopener noreferrer">X</a></li>
         <li><a href="#faq">FAQ</a></li>
       </ul>
     </nav>
@@ -189,6 +200,7 @@
   
           <div class="actions">
             <a class="buy-btn" id="buy-link" href="https://app.uniswap.org/swap?chain=mainnet&inputCurrency=NATIVE&outputCurrency=0xComingSoon" target="_blank" rel="noopener noreferrer">Buy $INCOGNITO</a>
+            <a class="x-btn" id="x-link" href="https://x.com/Incognitooneth" target="_blank" rel="noopener noreferrer">X / Twitter</a>
           </div>
   
           <p class="lede">Incognito69420 trades as $INCOGNITO against ETH. The buy button opens Uniswap on Ethereum mainnet. Review the output token in that window before you confirm. This page never connects a wallet and never asks for your seed phrase.</p>
@@ -276,12 +288,16 @@
   (function () {
     var CA = '0xComingSoon';
     var BUY_URL = 'https://app.uniswap.org/swap?chain=mainnet&inputCurrency=NATIVE&outputCurrency=' + encodeURIComponent(CA);
-    var CONFIG = { links: { Buy: BUY_URL } };
+    var X_URL = 'https://x.com/Incognitooneth';
+    var CONFIG = { links: { Buy: BUY_URL, X: X_URL } };
 
     function $(id) { return document.getElementById(id); }
 
     var caEl = $('ca');
     if (caEl) caEl.textContent = CA;
+
+    var xLink = $('x-link');
+    if (xLink) xLink.href = X_URL;
 
     ['buy-link', 'buy-link-2'].forEach(function (id) {
       var el = $(id); if (el) el.href = BUY_URL;
